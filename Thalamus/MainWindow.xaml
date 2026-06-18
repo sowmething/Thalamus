@@ -1,0 +1,139 @@
+﻿<Window x:Class="Thalamus.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="Thalamus"
+        Background="#121212"
+        Foreground="White"
+        WindowState="Normal">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="120"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="180"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="#181818" Padding="12">
+                <StackPanel>
+                    <TextBlock Text="Thalamus"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Foreground="#381bc4"/>
+
+                    <Separator Margin="0,10"/>
+
+                    <Button Content="Edit Args"
+        Height="32"
+        Margin="0,10,0,0"
+        Click="EditArgs"
+        Background="#381bc4"/>
+
+
+                    <TextBlock Text="Select Process" Foreground="#888"/>
+                    <ComboBox x:Name="ProcessCombo" Margin="0,5,0,15"/>
+
+                    <Button Content="Refresh"
+                            Height="32"
+                            Margin="0,0,0,10" Click="RefreshProcesses"
+                            Background="#381bc4"/>
+
+                    <TextBlock Text="Compiler" Foreground="#888"/>
+                    <Button Content="Choose g++.exe"
+                            Height="32" Click="SelectCompiler"
+                            Background="#381bc4"/>
+
+                    <TextBlock x:Name="CompilerStatus"
+                               Text="Not Set"
+                               Margin="0,10,0,0"
+                               Foreground="#777"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Background="#101010" Padding="0">
+                <Wpf:WebView2 x:Name="MonacoView"/>
+            </Border>
+
+                
+            
+            <Border Grid.Column="2" Background="#181818" Padding="12">
+                
+                
+                
+                <StackPanel>
+                    <TextBlock Text="Actions"
+                               FontSize="14"
+                               Foreground="#888"/>
+
+                    <Separator Margin="0,10"/>
+                    <TextBlock Text="Templates" FontSize="14" Foreground="#888" Margin="0,15,0,5"/>
+                    <StackPanel>
+                        <Button Content="Default Template" Margin="0,2" Height="28" Background="#381bc4" Click="igotbrainrot" Tag="default"/>
+                        <Button Content="Change Value at Address" Margin="0,2" Height="28" Background="#381bc4" Click="igotbrainrot" Tag="change_val"/>
+                        <Button Content="Transparent Window" Margin="0,2" Height="28" Background="#381bc4" Click="igotbrainrot" Tag="transparent"/>
+                        <Button Content="Pointer Resolver" Margin="0,2" Height="28" Background="#381bc4" Click="igotbrainrot" Tag="pointer"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <CheckBox x:Name="checkmeforhijack" VerticalAlignment="Center"/>
+                        <TextBlock Text="Hijack Thread" Foreground="#888" Margin="5,0,0,0" VerticalAlignment="Center" Height="18" Width="142" ToolTip="not working for some reason"/>
+                    </StackPanel>
+                    
+                    
+
+                    <Button Content="▶"
+                            Height="46"
+                            FontWeight="Bold"
+                            Background="#381bc4"
+                            Foreground="Black"
+                            Click="StartInjection" Width="76"/>
+                    
+                    <Button Content="Wipe headers" Height="41" Width="76" Background="#381bc4" Click="RemoveHeaders"/>
+
+
+
+                    <Separator Margin="0,15,0,10"/>
+                    <Separator Margin="0,15,0,10"/>
+                    <TextBlock Text="Game Speed" Foreground="#888" HorizontalAlignment="Center"/>
+                    <Slider x:Name="SpeedSlider" 
+        Minimum="0.1" Maximum="10" Value="1" 
+        Margin="0,5" 
+        ValueChanged="SpeedSlider_ValueChanged"
+        TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+                    <TextBlock x:Name="SpeedText" Text="1.0x" 
+           Foreground="#381bc4" FontWeight="Bold" 
+           HorizontalAlignment="Center"/>
+
+                    <Button Content="Inject Speed DLL" 
+        Height="32" Margin="0,10,0,0"
+        Background="#381bc4" 
+        Click="InjectSpeedDLL"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="1" Background="#0D0D0D" Padding="10">
+            <TextBox x:Name="comlog"
+                     Background="#0D0D0D"
+                     Foreground="#AAAAAA"
+                     FontFamily="Consolas"
+                     FontSize="12"
+                     IsReadOnly="True"
+                     BorderThickness="0"
+                     VerticalScrollBarVisibility="Auto"
+                     Text="You will see compiler errors here."/>
+        </Border>
+    </Grid>
+</Window>
